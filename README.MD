@@ -2,7 +2,7 @@
     <h1>Application preview:</h1>
 </div>
 
-![](./client/public/preview.mp4)
+https://github.com/miro810/example_project/assets/117926425/0dbb3d42-5b07-4a8a-83ef-e7f7163df146
 
 ---
 
