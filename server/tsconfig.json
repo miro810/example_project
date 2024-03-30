@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "removeComments": true,
+    "importHelpers": true,
+    "importsNotUsedAsValues": "remove",
+    "downlevelIteration": true,
+    "stripInternal": true,
+    "noEmitOnError": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": false,
+    "forceConsistentCasingInFileNames": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "include": [
+    "src/",
+    "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/interfaces"
+  ],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "explicit"
+  }
+}

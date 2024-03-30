@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+    db:
+        container_name: postgres_db
+        image: postgres:15-alpine
+        env_file:
+            - ./server/.env.production
+        environment:
+            POSTGRES_PASSWORD: test
+            POSTGRES_USER: postgres
+            POSTGRES_DB: docker_shop_app
+        ports:
+            - '5432:5432'
+        volumes:
+            - db:/var/lib/postgresql/data
+        networks:
+            - dockerLocal
+        restart: always
+    webserver:
+        container_name: express_app
+        image: node:18.17.1
+        build:
+            context: ./server
+            dockerfile: Dockerfile
+        ports:
+            - '7000:7000'
+        volumes:
+            - ./server:/main/server
+        stdin_open: true
+        tty: true
+        depends_on:
+            - db
+        command: sh -c "cd main/server && yarn run devServerBuild && yarn run prodServer"
+        networks:
+            - dockerLocal
+        restart: always
+    webclient:
+        container_name: nextjs_app
+        image: node:18.17.1
+        build:
+            context: ./client
+            dockerfile: Dockerfile
+        env_file:
+            - ./client/.env.local
+            - ./client/.env.production
+        ports:
+            - '8000:8000'
+        volumes:
+            - ./client:/main/client
+        stdin_open: true
+        tty: true
+        depends_on:
+            - db
+            - webserver
+        command: sh -c "cd main/client && yarn run devClientBuild && yarn run devClientHost"
+        networks:
+            - dockerLocal
+        restart: always
+networks:
+    dockerLocal:
+volumes:
+    db:
